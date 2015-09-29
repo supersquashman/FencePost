@@ -1,0 +1,22 @@
+<html><body>
+<div class="conatainer">
+    <div class="Absolute-Center is-Responsive text-centered">
+	<div class="overflow-auto" style="overflow: auto; height: 98%;">
+	<table class="table table-bordered table-striped">
+	  <th>Equipment ID</th>
+	  <th>Equipment Description</th>
+	  <th>Parts</th>
+	  <th>Status</th>
+	  <% @equipment.each do |item| %>
+	    <tr>
+		<td><%= item.id %></td>
+		<td><%= item.description %></td>
+		<td><%= item.parts %></td>
+		<td><%= item.status %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	</div>
+    </div>
+  </div>
+</body></html>
