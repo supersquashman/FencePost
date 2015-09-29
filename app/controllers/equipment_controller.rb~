@@ -12,10 +12,10 @@ class EquipmentController < ApplicationController
   def create
     @new_item = Equipment.new(inventory_params)
     #@new_item.status=1
-    #respond_modal_with @new_item, location: "/inventory"
+    #respond_modal_with @new_item, location: "/equipment"
     respond_to do |format|
       if @new_item.save
-	#flash[:success] = "#{@new_item.itemname} added to inventory"
+	#flash[:success] = "#{@new_item.description} added to inventory"
         format.html { redirect_to '/equipment', :flash => { :success => "'#{@new_item.description}' added to inventory."} }
 	format.html {redirect_to '/equipment'}
         format.json { render action: 'show', status: :created, location: '/equipment' }
@@ -28,6 +28,7 @@ class EquipmentController < ApplicationController
         format.js   { render json: @new_item.errors, status: :unprocessable_entity }
       end
     end
+  end
     
     def edit
      @current_item = Equipment.find(params[:equipmentid])

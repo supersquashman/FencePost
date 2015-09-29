@@ -1,0 +1,26 @@
+<%= form_for(@new_item) do |f| %>
+  <% if @new_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@new_item.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @new_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% content_for :header do %>
+    <h4 class="modal-title" id="myModalLabel">New Item</h4>
+  <% end %>
+  <div>
+  <%= f.label :description, 'Description:' %>
+  <%= f.text_field :description%></br>
+  <%= f.label :typeid, 'Equipment Type:' %>
+  <%#= f.collection_select(:typeid, ItemType.all, :typeid, :typedesc.to_s)%></br>
+  <%= f.collection_select(:status_id, ItemStatus.all, :id, :status_desc.to_s)%></br>
+  </div>
+    
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <%= f.submit 'Save', class: 'btn btn-success'%>
+<% end %>

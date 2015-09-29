@@ -28,6 +28,7 @@ class EquipmentController < ApplicationController
         format.js   { render json: @new_item.errors, status: :unprocessable_entity }
       end
     end
+  end
     
     def edit
      @current_item = Equipment.find(params[:equipmentid])
@@ -58,6 +59,6 @@ class EquipmentController < ApplicationController
 
   def inventory_params
     #params.require(:equipment).permit(:typeid, :itemname, :description)
-    params.require(:equipment)
+    params.require(:equipment).permit(:status_id, :description)
   end
 end

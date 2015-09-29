@@ -1,0 +1,27 @@
+<%= form_for @current_item, :url => "/inventory/update/#{@current_item.itemid}" do |f| %>
+  <% if @current_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@current_item.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @current_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% content_for :header do %>
+    <h4 class="modal-title" id="myModalLabel">'<%=@current_item.itemname%>'</h4>
+  <% end %>
+  <div>
+  <%= f.label :itemname, 'Item Name:' %>
+  <%= f.text_field :itemname%></br>
+  <%= f.label :typeid, 'Type:' %>
+  <%= f.collection_select(:typeid, ItemType.all, :typeid, :typedesc.to_s)%></br>
+  <%= f.label :description, 'Description:' %>
+  <%= f.text_area :description %>
+  </div>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    
+    <%= f.submit 'Save', class: 'btn btn-success'%>
+<% end %>

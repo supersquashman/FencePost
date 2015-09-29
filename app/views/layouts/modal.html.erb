@@ -1,0 +1,16 @@
+
+<div class="modal" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="height: 75%; width:45%; background: rgba(0, 0, 0, 0); border: none; box-shadow: none;">
+    <div class="modal-dialog" role="document" style="background: rgba(0, 0, 0, 0);">
+        <div class="modal-content">
+            <div class="modal-header">
+	      <%= yield :header %>
+            </div>
+            <div class="modal-body">
+                <%= yield %>
+            </div>
+            <div class="modal-footer">
+                <%= yield :footer %>
+        </div>
+    </div>
+  </div>
+</div>
