@@ -1,0 +1,22 @@
+<html><body>
+<div class="conatainer">
+    <div class="Absolute-Center is-Responsive text-centered">
+	<div class="overflow-auto" style="overflow: auto; height: 98%;">
+	<table class="table table-bordered table-striped">
+	  <th>UserID</th>
+	  <th>Email Address</th>
+	  <th>Waiver</th>
+	  <th>Dues</th>
+	  <% @users.each do |user| %>
+	    <tr>
+		<td><%= user.id %></td>
+		<td><%= user.email %></td>
+		<td><%= user.waiver %></td>
+		<td><%= user.dues %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	</div>
+    </div>
+  </div>
+</body></html>
