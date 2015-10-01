@@ -1,5 +1,5 @@
 class EquipmentController < ApplicationController
-  
+  respond_to :html, :json
   def index
     @equipment = Equipment.all
   end
@@ -31,12 +31,12 @@ class EquipmentController < ApplicationController
   end
     
     def edit
-     @current_item = Equipment.find(params[:equipmentid])
+     @current_item = Equipment.find(params[:id])
      respond_modal_with @current_item
   end
   
   def update
-     @current_item = Equipment.find(params[:equipmentid])
+     @current_item = Equipment.find(params[:id])
      
      @current_item.update(inventory_params)
      respond_to do |format|
@@ -46,7 +46,7 @@ class EquipmentController < ApplicationController
   end
   
   def destroy
-      @remove_item = Equipment.find(params[:equipmentid])
+      @remove_item = Equipment.find(params[:id])
       @remove_item.destroy
       
       respond_to do |format|
