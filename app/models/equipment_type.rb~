@@ -1,0 +1,2 @@
+class Equipment_Type < ActiveRecord::Base
+end

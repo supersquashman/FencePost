@@ -5,19 +5,29 @@
 	<table class="table table-bordered table-striped">
 	  <th>Equipment ID</th>
 	  <th>Equipment Description</th>
-	  <th>Parts</th>
+	  <% if @position.size > 0 %>
+	    <th>Parts</th>
+	  <% end %>
 	  <th>Status</th>
 	  <% @equipment.each do |item| %>
 	    <tr>
 		<td><%= item.id %></td>
 		<td><%= item.description %></td>
-		<td><%= item.parts %></td>
-		<td><%= item.status %></td>
+		<td><%= item.type %></td>
+		<% if @position.size>0 %>
+		  <td><%= item.parts %></td>
+		<% end %>
+		<td><%= item.status_desc %></td>
+		<% if @position.include?("armorer") %>
+		  <td><%= link_to 'Edit', "/equipment/#{item.id}/edit", data: { modal: true}, :class=>'btn btn-info' %></td>
+		  <td><%= link_to 'Delete', "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' %><td>
+		<% end %>
 	    </tr>
 	  <% end %>
 	</table>
 	</div>
     </div>
-  <div style="float: right;"><%= link_to 'New Item',  equipment_new_path, data: { modal: true }, :class=>'btn btn-success' %></div>
+  <div style="float: right;"><%= link_to 'Add Equipment',  equipment_new_path, data: { modal: true }, :class=>'btn btn-success' %></div>
   </div>
+</div>
 </body></html>

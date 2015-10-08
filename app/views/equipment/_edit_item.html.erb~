@@ -17,7 +17,7 @@
   <%#= f.label :description, 'Description:' %>
   <%#= f.text_field :description%>
   <%= f.label :Type, 'Equipment Type:'%>
-  <%= EquipmentType.find(@current_item.equipment_type_id).description.capitalize %></br></br>
+  <%= EquipmentType.find(@current_item.equipment_type_id).description.capitalize %></br>
   <%= f.label :parts, 'Parts' %>
   <%= f.text_field :parts %>
   <%#= f.label :equipment_type_id, 'Equipment Type:' %>

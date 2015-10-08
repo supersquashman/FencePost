@@ -39,3 +39,11 @@
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+
+.input-reskin input[type="text"]
+{
+  font-size: 14px;
+  height: auto;
+  margin-bottom: 13px;
+  padding: 6px 8px;
+}

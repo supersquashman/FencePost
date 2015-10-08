@@ -1,0 +1,6 @@
+class AddEquipmentTypeToEquipment < ActiveRecord::Migration
+  def change
+    #add_column :equipment, :equipment_type, :references
+    add_reference :equipment, :equipment_type, index: true, foreign_key: true
+  end
+end
