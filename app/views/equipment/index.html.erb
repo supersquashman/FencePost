@@ -23,12 +23,41 @@
 		  <td><%= link_to 'Edit', "/equipment/#{item.id}/edit", data: { modal: true}, :class=>'btn btn-info' %></td>
 		  <td><%= link_to 'Delete', "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' %><td>
 		<% end %>
+		<% if !@position.include?("armorer") && !@borrowed_eq.to_h.collect{|eq| eq["id"]}.include?(item.id) %>
+		  <td><%= link_to 'Request', "/equipment/#{item.id}/request", :confirm=> 'Are you certain you want to request to borrow this item?', :class=>'btn btn-warning' %></td>
+		<% end %>
 	    </tr>
 	  <% end %>
 	</table>
 	</div>
     </div>
-  <div style="float: right;"><%= link_to 'Add Equipment',  equipment_new_path, data: { modal: true }, :class=>'btn btn-success' %></div>
+  <% if @position.include?("armorer") or @position.include?("treasurer") or @position.include?("president") %>
+    <div style="float: right;"><%= link_to 'Add Equipment',  equipment_new_path, data: { modal: true }, :class=>'btn btn-success' %></div>
+  <% end %>
+  
+  <% if @position.size>0 %>
+  </br></br>
+  <b>Borrowed Equipment</b>
+  <div class="Absolute-Center is-Responsive text-centered">
+	<div class="overflow-auto" style="overflow: auto; height: 98%;">
+	<table class="table table-bordered table-striped">
+	  <th>Equipment ID</th>
+	  <th>Equipment Description</th>
+	  <th>Type</th>
+	  <th>Borrower</th>
+	  <% @borrowed_eq.each do |item| %>
+	    <tr>
+		<td><%= item.id %></td>
+		<td><%= item.description %></td>
+		<td><%= item.type %></td>
+		<td><%= item.status_desc %></td>
+		<td><%= item.users_id %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	</div>
+    </div>
+  <% end %>
   </div>
-</div>
+  </div>
 </body></html>

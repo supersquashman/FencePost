@@ -9,4 +9,9 @@ class ApplicationController < ActionController::Base
     options[:responder] = ModalResponder
     respond_with *args, options, &blk
   end
+  
+  def index
+     @note_count = Notification.count("to_user_id == #{current_user.id}") + EquipmentRequest.count("request_status_id == 0")
+     puts @note_count
+  end
 end

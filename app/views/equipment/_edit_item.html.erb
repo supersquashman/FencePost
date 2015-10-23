@@ -23,7 +23,11 @@
   <%#= f.label :equipment_type_id, 'Equipment Type:' %>
   <%#= f.text_field :equipment %>
   <%= f.label :status_id, 'Status:' %>
+  <% if @position.include?("armorer") %>
   <%= f.collection_select(:status_id, Status.all, :id, :status_desc.to_s)%></br>
+  <% else %>
+  <%= f.collection_select(:status_id, Status.where("status_desc like 'Ordered'"), :id, :status_desc.to_s)%></br>
+  <% end %>
   </div>
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     

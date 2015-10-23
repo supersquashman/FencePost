@@ -1,0 +1,26 @@
+<html><body>
+<div class="conatainer">
+    <div class="Absolute-Center is-Responsive text-centered">
+	<div class="overflow-auto" style="overflow: auto; height: 98%;">
+	<table class="table table-bordered table-striped">
+	  <th>Notification ID</th>
+	  <th>To User</th>
+	  <th>From User</th>
+	  <th>Message</th>
+	  <th>Timestamp</th>
+	  <th>Viewed</th>
+	  <% @notifications.each do |note| %>
+	    <tr>
+		<td><%= note.id %></td>
+		<td><%= note.to_user_id %></td>
+		<td><%= note.from_user_id %></td>
+		<td><%= note.message %></td>
+		<td><%= note.timestamp %></td>
+		<td><%= note.viewed %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	</div>
+    </div>
+  </div>
+</body></html>

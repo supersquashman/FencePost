@@ -1,10 +1,12 @@
 class EquipmentController < ApplicationController
   respond_to :html, :json
   def index
-    @equipment = Equipment.joins("join (select id, status_desc from statuses) s on s.id=equipment.status_id", "join (select id, description as type from equipment_types) et on et.id=equipment.equipment_type_id").
+    @equipment = Equipment.where("users_id IS NULL").joins("join (select id, status_desc from statuses) s on s.id=equipment.status_id", "join (select id, description as type from equipment_types) et on et.id=equipment.equipment_type_id").
 		 select("equipment.*, status_desc, type") 
     @position = Position.where("users_id=#{current_user.id}").select("id,title").collect{|p| p.title}
     @curr_user = current_user.id
+    @borrowed_eq = Equipment.where("users_id IS NOT NULL").joins("join (select id, status_desc from statuses) s on s.id=equipment.status_id", "join (select id, description as type from equipment_types) et on et.id=equipment.equipment_type_id").
+		  select("equipment.*, status_desc, type")
   end
   
   def new

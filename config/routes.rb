@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/equipment' => 'equipment#index'
   get '/roster' => 'users#index'
   get '/users' => 'users#index'
+  get '/notifications' => 'notifications#index'
   resources :equipment
   post '/equipment/new' => 'equipment#new'
   get '/equipment/:id/edit' => 'equipment#edit'

@@ -11,3 +11,5 @@ Position.create([{title: 'foil captain'}, {title: 'epee captain'}, {title: 'sabr
 Status.create([{status_desc: 'Working'}, {status_desc: 'Not Working'}, {status_desc: 'In Repair'}, {status_desc: 'Ordered'}])
 
 EquipmentType.create([{description: 'foil mask'}, {description:'sabre mask'}, {description:'epee mask'}, {description:'sabre'}, {description:'foil'}, {description:'epee'}, {description:'foil lame'}, {description:'sabre lame'}])
+
+RequestStatus.create([{status_desc: 'Pending'}, {status_desc: 'Approved'}, {status_desc: 'Denied'}, {status_desc: 'Withdrawn'}])

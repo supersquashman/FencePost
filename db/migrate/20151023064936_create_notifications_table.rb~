@@ -1,0 +1,6 @@
+class CreateNotificationsTable < ActiveRecord::Migration
+  def change
+    create_table :notifications_tables do |t|
+    end
+  end
+end

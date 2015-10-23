@@ -1,0 +1,16 @@
+class CreateCheckoutTable < ActiveRecord::Migration
+  def change
+    create_table :request_status do |r|
+      r.string :status_desc, default: 0
+    end
+    create_table :checkout_table do |t|
+      t.datetime :time_requested
+      t.datetime :time_request_approved
+      t.datetime :time_returned
+      t.datetime :time_return_approved
+    end
+    add_reference :checkout_table, :equipment, foreign_key: true
+    add_reference :checkout_table, :users, foreign_key: true
+    add_reference :checkout_table, :request_status, foreign_key: true
+  end
+end
