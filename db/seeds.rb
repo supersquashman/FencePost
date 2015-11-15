@@ -13,3 +13,5 @@ Status.create([{status_desc: 'Working'}, {status_desc: 'Not Working'}, {status_d
 EquipmentType.create([{description: 'foil mask'}, {description:'sabre mask'}, {description:'epee mask'}, {description:'sabre'}, {description:'foil'}, {description:'epee'}, {description:'foil lame'}, {description:'sabre lame'}])
 
 RequestStatus.create([{status_desc: 'Pending'}, {status_desc: 'Approved'}, {status_desc: 'Denied'}, {status_desc: 'Withdrawn'}])
+
+RequestType.create([{request_type_description: 'Checkout'}, {request_type_description: 'Return'}, {request_type_description: 'Repair'}])

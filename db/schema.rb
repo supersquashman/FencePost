@@ -11,16 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023064936) do
+ActiveRecord::Schema.define(version: 20151114221156) do
 
   create_table "checkout_table", force: :cascade do |t|
-    t.datetime "time_requested"
-    t.datetime "time_request_approved"
-    t.datetime "time_returned"
-    t.datetime "time_return_approved"
+    t.datetime "time_opened"
+    t.datetime "time_closed"
     t.integer  "equipment_id"
     t.integer  "users_id"
     t.integer  "request_status_id"
+    t.integer  "request_types_id"
   end
 
   create_table "equipment", force: :cascade do |t|
@@ -54,6 +53,10 @@ ActiveRecord::Schema.define(version: 20151023064936) do
 
   create_table "request_statuses", force: :cascade do |t|
     t.string "status_desc", default: "0"
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.string "request_type_description"
   end
 
   create_table "statuses", force: :cascade do |t|

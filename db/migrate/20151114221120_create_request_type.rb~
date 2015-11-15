@@ -1,0 +1,6 @@
+class CreateRequestType < ActiveRecord::Migration
+  def change
+    create_table :request_types do |t|
+    end
+  end
+end
