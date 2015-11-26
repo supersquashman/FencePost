@@ -3,11 +3,12 @@
     <div class="Absolute-Center is-Responsive text-centered">
 	<div class="overflow-auto" style="overflow: auto; height: 98%;">
 	<table class="table table-bordered table-striped">
+	<% if @position.size > 0 %>
 	  <th>UserID</th>
 	  <th>Email Address</th>
 	  <th>Waiver</th>
 	  <th>Dues</th>
-	  <% Users.each do |user| %>
+	  <% @users.each do |user| %>
 	    <tr>
 		<td><%= user.id %></td>
 		<td><%= user.email %></td>
@@ -15,6 +16,18 @@
 		<td><%= user.dues %></td>
 	    </tr>
 	  <% end %>
+	<% else %>
+	  <th>Name</th>
+	  <th>Email Address</th>
+	  <th>Position</th>
+	  <% @users.each do |user| %>
+	    <tr>
+		<td><%= "#{user.first_name} #{user.last_name}" %></td>
+		<td><%= user.email %></td>
+		<td><%= Position.where("users_id=#{user.id}").select("title").collect{|t| t.title}.join(", ")%></td>
+	    </tr>
+	  <% end %>
+	<% end %>
 	</table>
 	</div>
     </div>

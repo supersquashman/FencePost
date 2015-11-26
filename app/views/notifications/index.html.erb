@@ -1,6 +1,28 @@
 <html><body>
 <div class="conatainer">
     <div class="Absolute-Center is-Responsive text-centered">
+	<%if @position.include?("armorer") && EquipmentRequest.count("request_status_id == 0") %>
+	<div class="overflow-auto" style="overflow: auto; height: 98%;">
+	<table class="table table-bordered table-striped">
+	  <th>Request ID</th>
+	  <th>Request Submitted</th>
+	  <th>Requested By</th>
+	  <th>Type of Request</th>
+	  <th>Equipment Requested</th>
+	  <% @approvals.each do |note| %>
+	    <tr>
+		<td><%= note.id %></td>
+		<td><%= note.time_opened %></td>
+		<td><%= note.users_id %></td>
+		<td><%= note.rtdesc %></td>
+		<td><%= note.equipment_desc %></td>
+		<td><%= link_to 'Approve', "/notifications/approve/#{note.id}", data: { modal: true}, :method=>:approve, :class=>'btn btn-success' %>
+		    <%= link_to 'Deny', "/notifications/deny/#{note.id}", data: { modal: true}, :method=>:deny, :class=>'btn btn-danger' %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	</div>
+	<% end %>
 	<div class="overflow-auto" style="overflow: auto; height: 98%;">
 	<table class="table table-bordered table-striped">
 	  <th>Notification ID</th>
@@ -12,8 +34,8 @@
 	  <% @notifications.each do |note| %>
 	    <tr>
 		<td><%= note.id %></td>
-		<td><%= note.to_user_id %></td>
-		<td><%= note.from_user_id %></td>
+		<td><%= note.to_user %></td>
+		<td><%= note.from_user %></td>
 		<td><%= note.message %></td>
 		<td><%= note.timestamp %></td>
 		<td><%= note.viewed %></td>

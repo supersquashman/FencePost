@@ -10,6 +10,7 @@
 	    <th>Parts</th>
 	  <% end %>
 	  <th>Status</th>
+	  <th colspan="2" style="text-align: center">Actions</th>
 	  <% @equipment.each do |item| %>
 	    <tr>
 		<td><%= item.id %></td>
@@ -23,8 +24,21 @@
 		  <td><%= link_to 'Edit', "/equipment/#{item.id}/edit", data: { modal: true}, :class=>'btn btn-info' %></td>
 		  <td><%= link_to 'Delete', "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' %><td>
 		<% end %>
-		<% if !@position.include?("armorer") && !@borrowed_eq.to_h.collect{|eq| eq["id"]}.include?(item.id) %>
-		  <td><%= link_to 'Request', "/equipment/#{item.id}/request", :confirm=> 'Are you certain you want to request to borrow this item?', :class=>'btn btn-warning' %></td>
+		<% if !@position.include?("armorer") %>
+		  <% if !@borrowed_eq.to_a.collect{|eq| eq["id"]}.include?(item.id) %>
+		  <% if item.status_desc!="Not Working" %>
+		    <% if !@requested_eq.to_a.collect{|eqr| eqr["equipment_id"]}.include?(item.id) %>
+			<td style="text-align: center"><%= link_to 'Request', "/equipment/eqrequest/#{item.id}", :confirm=> 'Are you certain you want to request to borrow this item?', :method=>:eqrequest, :class=>'btn btn-success' %></td>
+		    <% else %>
+			<td style="text-align: center"><%= link_to 'Cancel Request', "equipment/canceleqrequest/#{item.id}", :confirm=> 'Are you certain you want to cancel your request?', :method=>:canceleqrequest, :class=>'btn btn-warning' %></td>
+		    <% end %>
+		  <% end %>
+		  <% else %>
+		    
+		  <% end %>
+		  <% if item.status_desc!="Not Working" %>
+		    <td style="text-align: center"><%= link_to 'Repair', "equipment/eqrepair/#{item.id}", :confirm=>'Are you certain this equipment is in need of repair?', :method=>:eqrepair, :class=>'btn btn-small' %></td>
+		  <% end %>
 		<% end %>
 	    </tr>
 	  <% end %>
@@ -35,7 +49,7 @@
     <div style="float: right;"><%= link_to 'Add Equipment',  equipment_new_path, data: { modal: true }, :class=>'btn btn-success' %></div>
   <% end %>
   
-  <% if @position.size>0 %>
+  <% if @borrowed_eq.size>0 %>
   </br></br>
   <b>Borrowed Equipment</b>
   <div class="Absolute-Center is-Responsive text-centered">
@@ -44,14 +58,27 @@
 	  <th>Equipment ID</th>
 	  <th>Equipment Description</th>
 	  <th>Type</th>
-	  <th>Borrower</th>
+	  <th>Status</th>
+	  <% if @position.include?("armorer") %>
+	    <th>Borrower</th>
+	  <% else %>
+	    <th style="text-align: center">Actions</th>
+	  <% end %>
 	  <% @borrowed_eq.each do |item| %>
 	    <tr>
 		<td><%= item.id %></td>
 		<td><%= item.description %></td>
 		<td><%= item.type %></td>
 		<td><%= item.status_desc %></td>
-		<td><%= item.users_id %></td>
+		<% if @position.include?("armorer") %>
+		  <td><%= item.users_id %></td>
+		<% else %>
+		    <% if !@requested_eq.to_a.collect{|eqr| eqr["equipment_id"]}.include?(item.id) %>
+		      <td style="text-align: center"><%= link_to 'Return', "/equipment/eqreturn/#{item.id}", :confirm=> 'Are you certain youre ready to return this equipment?', :method=>:eqreturn, :class=>'btn btn-info' %> </td>
+		    <% else %>
+			<td style="text-align: center"><%= link_to 'Cancel Return', "equipment/canceleqrequest/#{item.id}", :confirm=> 'Are you certain you want to cancel your request?', :method=>:canceleqrequest, :class=>'btn btn-warning' %></td>
+		    <% end %>
+		<% end %>
 	    </tr>
 	  <% end %>
 	</table>

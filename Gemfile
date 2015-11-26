@@ -16,6 +16,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'less-rails-bootstrap'
 
 gem 'devise'
+gem 'pundit'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114221156) do
+ActiveRecord::Schema.define(version: 20151125060440) do
 
   create_table "checkout_table", force: :cascade do |t|
     t.datetime "time_opened"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20151114221156) do
     t.datetime "updated_at",                             null: false
     t.boolean  "dues",                   default: false
     t.boolean  "waiver",                 default: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -5,6 +5,6 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User
+    @users = User.join("join (select users_id, title from positions) p on p.users_id=id").select("users.*, p.title as title")
   end
 end

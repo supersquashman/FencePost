@@ -23,6 +23,12 @@ Rails.application.routes.draw do
   get '/equipment/:id/edit' => 'equipment#edit'
   post '/equipment/delete/:id' => 'equipment#destroy'
   patch '/equipment/update/:id' => 'equipment#update'
+  post '/equipment/eqrequest/:id' => 'equipment#eqrequest'
+  post '/equipment/eqreturn/:id' => 'equipment#eqreturn'
+  post '/equipment/eqrepair/:id' => 'equipment#eqrepair'
+  post '/equipment/canceleqrequest/:id' => 'equipment#canceleqrequest'
+  post '/notifications/approve/:id' => 'notifications#approve'
+  post '/notifications/deny/:id' => 'notifications#deny'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
