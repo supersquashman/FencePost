@@ -1,4 +1,5 @@
 class EquipmentController < ApplicationController
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   respond_to :html, :json
   def index
     @equipment = Equipment.where("users_id IS NULL").joins("join (select id, status_desc from statuses) s on s.id=equipment.status_id", "join (select id, description as type from equipment_types) et on et.id=equipment.equipment_type_id").
@@ -150,5 +151,21 @@ class EquipmentController < ApplicationController
   def inventory_params
     #params.require(:equipment).permit(:typeid, :itemname, :description)
     params.require(:equipment).permit(:status_id, :description, :equipment_type_id, :parts)
+  end
+  
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    puts policy_name
+    if policy_name="eqrequest?"
+      respond_to do |format|
+	  format.html {redirect_to '/equipment', :flash => { :error => "You must have a completed waiver and dues to check out equipment"}}
+	  format.json {head :ok}
+      end
+    else
+      respond_to do |format|
+	  format.html {redirect_to '/equipment', :flash => { :error => "Error processing request, please talk to your club president."}}
+	  format.json {head :ok}
+      end
+    end
   end
 end

@@ -15,3 +15,12 @@ EquipmentType.create([{description: 'foil mask'}, {description:'sabre mask'}, {d
 RequestStatus.create([{status_desc: 'Pending'}, {status_desc: 'Approved'}, {status_desc: 'Denied'}, {status_desc: 'Withdrawn'}])
 
 RequestType.create([{request_type_description: 'Checkout'}, {request_type_description: 'Return'}, {request_type_description: 'Repair'}])
+
+admin=User.new
+admin.email='setup@fencepost.init'
+admin.password='fencepostsetup'
+admin.save!
+
+default_update=Hash.new
+default_update[:users_id]=User.where("email='setup@fencepost.init'").select("id")[0][:id]
+Position.all.update_all(default_update)

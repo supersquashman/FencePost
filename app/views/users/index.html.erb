@@ -6,16 +6,31 @@
 	<% if @position.size > 0 %>
 	  <th>Name</th>
 	  <th>Email Address</th>
-	  <th>Position</th>
 	  <th>Waiver</th>
 	  <th>Dues</th>
+	  <th>Position</th>
 	  <% @users.each do |user| %>
 	    <tr>
 		<td><%= "#{user.first_name} #{user.last_name}" %></td>
 		<td><%= user.email %></td>
+		<td>
+		<% if user.waiver %>
+		  <%= link_to "Complete", "/users/#{user.id}/waiver", :class => 'btn btn-success' %>
+		<% else %>
+		  <%= link_to "Incomplete", "/users/#{user.id}/waiver", :class => 'btn btn-danger' %>
+		<% end %>
+		</td>
+		<td>
+		<% if user.dues %>
+		  <%= link_to "Paid", "/users/#{user.id}/dues", :class => 'btn btn-success' %>
+		<% else %>
+		  <%= link_to "Unpaid", "/users/#{user.id}/dues", :class => 'btn btn-danger' %>
+		<% end %>
+		</td>
 		<td><%= Position.where("users_id=#{user.id}").select("title").collect{|t| t.title}.join(", ")%></td>
-		<td><%= user.waiver %></td>
-		<td><%= user.dues %></td>
+	      <% if @position.include?("president") %>
+		  <td><%= link_to 'Edit Position', "/users/#{user.id}/positions", data: { modal: true}, :class=>'btn btn-info' %></td>
+		<% end %>
 	    </tr>
 	  <% end %>
 	<% else %>
@@ -26,7 +41,7 @@
 	    <tr>
 		<td><%= "#{user.first_name} #{user.last_name}" %></td>
 		<td><%= user.email %></td>
-		<td><%= Position.where("users_id=#{user.id}").select("title").collect{|t| t.title}.join(", ")%></td>
+		<td><%= Position.where("users_id=#{user.id}").select("title").collect{|t| t.title.capitalize}.join(", ")%></td>
 	    </tr>
 	  <% end %>
 	<% end %>

@@ -13,7 +13,7 @@
   <% content_for :header do %>
     <h4 class="modal-title" id="myModalLabel">New Item</h4>
   <% end %>
-  <div>
+  <div class="input-reskin">
   <%= f.label :description, 'Description:' %>
   <%= f.text_field :description%></br>
   <%= f.label :equipment_type_id, 'Equipment Type:' %>

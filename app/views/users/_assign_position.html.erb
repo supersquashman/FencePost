@@ -1,0 +1,41 @@
+<%= form_for @changing_user, :url => "/users/assign_position/#{@changing_user.id}" do |f| %>
+  <% if @changing_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@changing_user.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @changing_user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% content_for :header do %>
+    <h4 class="modal-title" id="myModalLabel">'<%= "#{@changing_user.first_name} #{@changing_user.last_name} (#{@changing_user.email})" %>'</h4>
+  <% end %>
+  <div class="input-reskin">
+  <label> Positions </label>
+  <% Position.all.each do |t| %>
+    <%= check_box_tag 'positions_for_user[]', t.id, (t.users_id==@changing_user.id) -%>
+    <%= h t.title.capitalize -%>
+    </br>
+  <% end %>
+  <!--<%#= f.label :description, 'Description:' %>
+  <%#= f.text_field :description%>
+  <%#= f.label :Type, 'Equipment Type:'%>
+  <%#= EquipmentType.find(@changing_user.equipment_type_id).description.capitalize %></br></br>
+  <%#= f.label :parts, 'Parts' %>
+  <%#= f.text_field :parts %>
+  <%#= f.label :equipment_type_id, 'Equipment Type:' %>
+  <%#= f.text_field :equipment %>
+  <%#= f.label :status_id, 'Status:' %>
+  <% if @position.include?("armorer") %>
+  <%#= f.collection_select(:status_id, Status.all, :id, :status_desc.to_s)%></br>
+  <% else %>
+  <%#= f.collection_select(:status_id, Status.where("status_desc like 'Ordered'"), :id, :status_desc.to_s)%></br>
+  <% end %>-->
+  </div>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    
+    <%= f.submit 'Save', class: 'btn btn-success'%>
+<% end %>
