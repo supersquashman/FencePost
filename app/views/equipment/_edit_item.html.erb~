@@ -1,7 +1,7 @@
 <%= form_for @current_item, :url => "/equipment/update/#{@current_item.id}" do |f| %>
   <% if @current_item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@current_item.errors.count, "error") %> prohibited this person from being saved:</h2>
+      <h2><%= pluralize(@current_item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
       <ul>
       <% @current_item.errors.full_messages.each do |msg| %>
@@ -31,5 +31,5 @@
   </div>
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     
-    <%= f.submit 'Save', class: 'btn btn-success'%>
+    <%= f.submit class: 'btn btn-success' do%><i class="fa fa-floppy-o"><%= "Save" %></i><% end %>
 <% end %>

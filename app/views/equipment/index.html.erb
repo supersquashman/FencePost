@@ -19,8 +19,9 @@
 		<% end %>
 		<td><%= item.status_desc %></td>
 		<% if @position.include?("armorer") %>
-		  <td><%= link_to 'Edit', "/equipment/#{item.id}/edit", data: { modal: true}, :class=>'btn btn-info' %></td>
-		  <td><%= link_to 'Delete', "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' %><td>
+		  <td><%= link_to "/equipment/#{item.id}/edit", data: { modal: true}, :class=>'btn btn-info' do%><i class="fa fa-file-text-o">&nbspEdit</i><% end %>
+</td>
+		  <td><%= link_to "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' do%><i class="fa fa-trash-o fa-sm">&nbspDelete</i><% end %><td>
 		<% end %>
 		<% if !@position.include?("armorer") %>
 		  <% if !@borrowed_eq.to_a.collect{|eq| eq["id"]}.include?(item.id) %>
@@ -44,7 +45,7 @@
 	</div>
     </div>
   <% if @position.include?("armorer") or @position.include?("treasurer") or @position.include?("president") %>
-    <div style="float: right;"><%= link_to 'Add Equipment',  equipment_new_path, data: { modal: true }, :class=>'btn btn-success' %></div>
+    <div style="float: right;"><%= link_to equipment_new_path, data: { modal: true }, :class=>'btn btn-success' do %><i class="fa fa-plus-square-o"><%= " Add Equipment" %></i><% end %></div>
   <% end %>
   
   <% if @borrowed_eq.size>0 %>
@@ -74,7 +75,7 @@
 		    <% if !@requested_eq.to_a.collect{|eqr| eqr["equipment_id"]}.include?(item.id) %>
 		      <td style="text-align: center"><%= link_to 'Return', "/equipment/eqreturn/#{item.id}", :confirm=> 'Are you certain youre ready to return this equipment?', :method=>:eqreturn, :class=>'btn btn-info' %> </td>
 		    <% else %>
-			<td style="text-align: center"><%= link_to 'Cancel Return', "equipment/canceleqrequest/#{item.id}", :confirm=> 'Are you certain you want to cancel your request?', :method=>:canceleqrequest, :class=>'btn btn-warning' %></td>
+			<td style="text-align: center"><%= link_to "equipment/canceleqrequest/#{item.id}", :confirm=> 'Are you certain you want to cancel your request?', :method=>:canceleqrequest, :class=>'btn btn-warning' do %><i class="fa fa-ban"><%= " Cancel Return"%><% end %></i></td>
 		    <% end %>
 		<% end %>
 	    </tr>

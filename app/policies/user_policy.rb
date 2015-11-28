@@ -8,6 +8,6 @@ class UserPolicy < ApplicationPolicy
   end
   
   def alt_auth?
-    Position.where("title in ('president', 'treasurer')").select("users_id").to_a.collect(|t| t.users_id).contains(user.id)    
+    Position.where("title in ('president', 'treasurer')").select("users_id").to_a.collect{|t| t.users_id}.contains(user.id)    
   end
 end

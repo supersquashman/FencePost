@@ -6,17 +6,19 @@
 	<% if @position.size > 0 %>
 	  <th>Name</th>
 	  <th>Email Address</th>
+	  <th>Last Sign-in</th>
 	  <th>Waiver</th>
 	  <th>Dues</th>
 	  <th>Position</th>
-	  <th>Last Sign-in</th>
 	  <% @users.each do |user| %>
 	    <tr>
-		
-		<td><%= link_to "/users/#{user.id}/edit", data: {modal: true} do%><i class="fa fa-pencil fa-fw"></i><%end%>&nbsp<%= "#{user.first_name} #{user.last_name}" %></td>
+		<td><% if @position.include?("president") %>
+		  <%= link_to "/users/#{user.id}/edit", data: {modal: true} do%><i class="fa fa-pencil fa-fw"></i>&nbsp<%end%>
+		<%= "#{user.first_name} #{user.last_name}" %></td>    
 		<td><%= user.email %></td>
-		<td>
+		<td><%= user.current_sign_in_at %></td>
 		<% if @position.include?("president") or @position.include?("treasurer") %>
+		  <td>
 		  <% if user.waiver %>
 		    <%= link_to "Complete", "/users/#{user.id}/waiver", :class => 'btn btn-success' %>
 		  <% else %>
@@ -47,7 +49,6 @@
 	      <% if @position.include?("president") %>
 		  <td><%= link_to 'Edit Position', "/users/#{user.id}/positions", data: { modal: true}, :class=>'btn btn-info' %></td>
 		<% end %>
-		<td><%= user.current_sign_in_at %></td>
 	    </tr>
 	  <% end %>
 	<% else %>

@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
-  
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  respond_to :html, :json
   def new
     @new_notification = Notification.new
   end
@@ -19,7 +20,7 @@ class NotificationsController < ApplicationController
   
   def approve
     @curr_user = current_user.id
-    authorize @curr_user, :armorer
+    authorize @curr_user, :armorer?
     current_request = EquipmentRequest.find(params[:id])
     approve_param = Hash.new
     approve_param[:request_status_id] = RequestStatus.where("status_desc like 'Approved'").select("id")[0][:id]
@@ -90,7 +91,7 @@ class NotificationsController < ApplicationController
   
   def deny
     @curr_user = current_user.id
-    authorize @curr_user, :armorer
+    authorize @curr_user, :armorer?
     current_request = EquipmentRequest.find(params[:id])
     deny_private_request(current_request)
 #     deny_param = Hash.new
@@ -154,5 +155,14 @@ class NotificationsController < ApplicationController
   def notification_params
     #params.require(:equipment).permit(:typeid, :itemname, :description)
     params.require(:equipment).permit(:status_id, :description, :equipment_type_id, :parts)
+  end
+  
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    puts policy_name
+      respond_to do |format|
+	  format.html {redirect_to '/equipment', :flash => { :error => "You are not authorized to perform this action."}}
+	  format.json {head :ok}
+      end
   end
 end

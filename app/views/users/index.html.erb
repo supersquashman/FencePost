@@ -12,8 +12,10 @@
 	  <th>Position</th>
 	  <% @users.each do |user| %>
 	    <tr>
-		
-		<td><%= link_to "/users/#{user.id}/edit", data: {modal: true} do%><i class="fa fa-pencil fa-fw"></i><%end%>&nbsp<%= "#{user.first_name} #{user.last_name}" %></td>
+		<td><% if @position.include?("president") %>
+		  <%= link_to "/users/#{user.id}/edit", data: {modal: true} do%><i class="fa fa-pencil fa-fw"></i>&nbsp<%end%>
+		 <% end %>
+		<%= "#{user.first_name} #{user.last_name}" %></td>    
 		<td><%= user.email %></td>
 		<td><%= user.current_sign_in_at %></td>
 		<% if @position.include?("president") or @position.include?("treasurer") %>
