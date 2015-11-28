@@ -11,7 +11,9 @@
     </div>
   <% end %>
   <% content_for :header do %>
-    <h4 class="modal-title" id="myModalLabel">'<%= "#{@edit_user.first_name} #{@edit_user.last_name} (#{@edit_user.email})" %>'</h4>
+    <h4 class="modal-title" id="myModalLabel">'<%= "#{@edit_user.first_name} #{@edit_user.last_name} (#{@edit_user.email})" %>'
+    <div style="float: right;"><%= link_to "/users/delete/#{@edit_user.id}", :confirm=> 'Do you really want to delete this user?', :method=>:destroy, :class=>'btn btn-danger' do%><i class="fa fa-trash-o fa-sm"><%= " Delete User" %></i><% end %></div>
+    </h4>
   <% end %>
   <div class="input-reskin">
   <%= f.label :first_name, 'First Name' %>

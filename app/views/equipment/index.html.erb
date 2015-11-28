@@ -21,7 +21,7 @@
 		<% if @position.include?("armorer") %>
 		  <td><%= link_to "/equipment/#{item.id}/edit", data: { modal: true}, :class=>'btn btn-info' do%><i class="fa fa-file-text-o">&nbspEdit</i><% end %>
 </td>
-		  <td><%= link_to "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' do%><i class="fa fa-trash-o fa-sm">&nbspDelete</i><% end %><td>
+		  <td><%= link_to "/equipment/delete/#{item.id}", :confirm=> 'Do you really want to delete this item?', :method=>:destroy, :class=>'btn btn-danger' do%><i class="fa fa-trash-o fa-sm"><%= " Delete" %></i><% end %><td>
 		<% end %>
 		<% if !@position.include?("armorer") %>
 		  <% if !@borrowed_eq.to_a.collect{|eq| eq["id"]}.include?(item.id) %>

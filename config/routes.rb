@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get '/users/:id/waiver' => 'users#waiver'
   get '/users/:id/dues' => 'users#dues'
   post '/users/:id/edit' => 'users#edit'
-  patch 'users/update/:id' => 'users#update'
+  patch '/users/update/:id' => 'users#update'
+  post '/users/delete/:id' => 'users#destroy'
   get '/notifications' => 'notifications#index'
   resources :equipment
   post '/equipment/new' => 'equipment#new'

@@ -24,6 +24,17 @@ class UsersController < ApplicationController
     end
   end
   
+  def destroy
+      @remove_user = User.find(params[:id])
+      authorize @remove_user, :president?
+      @remove_user.destroy
+      
+      respond_to do |format|
+	  format.html {redirect_to '/users', :flash => { :error => "User for '#{@remove_user.email}' has been deleted."}}
+	  format.json {head :ok}
+      end
+  end
+  
   def waiver
     change_user = User.find(params[:id])
     authorize change_user, :alt_auth?
