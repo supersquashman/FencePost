@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-#   include Pundit
+  include Pundit
   protect_from_forgery with: :exception
   before_action :authenticate_user!, :noti_count
   
@@ -13,12 +13,13 @@ class ApplicationController < ActionController::Base
   
   def noti_count
      if (current_user)
-     note_count = Notification.count("to_user_id == #{current_user.id} and viewed=='f'")
+     @note_count = 0 
+     @note_count = Notification.count("to_user_id == #{current_user.id} and viewed=='f'")
      @position = Position.where("users_id=#{current_user.id}").select("id,title").collect{|p| p.title}
      if (@position.include?("armorer"))
-      note_count = note_count + EquipmentRequest.count("request_status_id = #{RequestStatus.where("status_desc like 'Pending'").select("id")[0][:id]}")
+      @note_count = @note_count + EquipmentRequest.count("request_status_id = #{RequestStatus.where("status_desc like 'Pending'").select("id")[0][:id]}")
      end
-     puts note_count
+     puts @note_count
      end
   end
 end

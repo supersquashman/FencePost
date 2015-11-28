@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
+  resources :users
   get '/equipment' => 'equipment#index'
   get '/roster' => 'users#index'
   get '/users' => 'users#index'
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
   patch '/users/assign_position/:id' => 'users#assign_position'
   post '/users/:id/waiver' => 'users#waiver'
   post '/users/:id/dues' => 'users#dues'
+  post '/users/:id/edit' => 'users#edit'
+  patch 'users/update/:id' => 'users#update'
   get '/notifications' => 'notifications#index'
   resources :equipment
   post '/equipment/new' => 'equipment#new'

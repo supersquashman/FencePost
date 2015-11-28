@@ -36,7 +36,9 @@
 		  <% else %>
 		    
 		  <% end %>
-		  <td style="text-align: center"><%= link_to 'Repair', "equipment/eqrepair/#{item.id}", :confirm=>'Are you certain this equipment is in need of repair?', :method=>:eqrepair, :class=>'btn btn-small' %></td>
+		  <% if item.status_desc!="Not Working" %>
+		    <td style="text-align: center"><%= link_to 'Repair', "equipment/eqrepair/#{item.id}", :confirm=>'Are you certain this equipment is in need of repair?', :method=>:eqrepair, :class=>'btn btn-small' %></td>
+		  <% end %>
 		<% end %>
 	    </tr>
 	  <% end %>

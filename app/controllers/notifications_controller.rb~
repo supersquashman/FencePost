@@ -62,7 +62,7 @@ class NotificationsController < ApplicationController
       update_equipment.update(update_param)
     when "Repair"
       requests_to_update = EquipmentRequest.where("equipment_id=#{current_request.equipment_id} and request_types_id=#{current_request.request_types_id} and request_status_id=#{current_request.request_status_id}")
-      requests_to_update = Hash.new
+      requests_to_update_params = Hash.new
       requests_to_update_params[:request_status_id] = RequestStatus.where("status_desc like 'Approved'").select("id")[0][:id]
       requests_to_update_params[:time_closed] = Time.now
       requests_to_update.update_all(requests_to_update_params)

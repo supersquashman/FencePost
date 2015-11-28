@@ -14,6 +14,9 @@
  *= require_tree .
  */
 /* User sign in and sign forms. */
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 .border-form-div {
   max-width: 300px;
   padding: 19px 29px 29px;
@@ -40,7 +43,8 @@
   padding: 7px 9px;
 }
 
-.input-reskin input[type="text"]
+.input-reskin input[type="text"],
+.input-reskin input[type="email"]
 {
   font-size: 14px;
   height: auto;

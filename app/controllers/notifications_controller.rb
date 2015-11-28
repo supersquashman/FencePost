@@ -19,6 +19,7 @@ class NotificationsController < ApplicationController
   
   def approve
     @curr_user = current_user.id
+    authorize @curr_user, :armorer
     current_request = EquipmentRequest.find(params[:id])
     approve_param = Hash.new
     approve_param[:request_status_id] = RequestStatus.where("status_desc like 'Approved'").select("id")[0][:id]
@@ -89,6 +90,7 @@ class NotificationsController < ApplicationController
   
   def deny
     @curr_user = current_user.id
+    authorize @curr_user, :armorer
     current_request = EquipmentRequest.find(params[:id])
     deny_private_request(current_request)
 #     deny_param = Hash.new

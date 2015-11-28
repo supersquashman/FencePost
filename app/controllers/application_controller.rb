@@ -13,12 +13,13 @@ class ApplicationController < ActionController::Base
   
   def noti_count
      if (current_user)
-     note_count = Notification.count("to_user_id == #{current_user.id} and viewed=='f'")
+     @note_count = 0 
+     @note_count = Notification.where("to_user_id == #{current_user.id} and viewed=='f'").count
      @position = Position.where("users_id=#{current_user.id}").select("id,title").collect{|p| p.title}
      if (@position.include?("armorer"))
-      note_count = note_count + EquipmentRequest.count("request_status_id = #{RequestStatus.where("status_desc like 'Pending'").select("id")[0][:id]}")
+      @note_count = @note_count + EquipmentRequest.count("request_status_id = #{RequestStatus.where("status_desc like 'Pending'").select("id")[0][:id]}")
      end
-     puts note_count
+     puts @note_count
      end
   end
 end

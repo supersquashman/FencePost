@@ -24,6 +24,7 @@ class EquipmentController < ApplicationController
     @new_item = Equipment.new(inventory_params)
     #@new_item.status=1
     #respond_modal_with @new_item, location: "/equipment"
+    authorize @new_item, :general_add_eq?
     respond_to do |format|
       if @new_item.save
 	#flash[:success] = "#{@new_item.description} added to inventory"
@@ -163,7 +164,7 @@ class EquipmentController < ApplicationController
       end
     else
       respond_to do |format|
-	  format.html {redirect_to '/equipment', :flash => { :error => "Error processing request, please talk to your club president."}}
+	  format.html {redirect_to '/equipment', :flash => { :error => "You are not authorized to perform this action."}}
 	  format.json {head :ok}
       end
     end

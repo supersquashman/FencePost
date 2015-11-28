@@ -3,7 +3,6 @@
     <div class="Absolute-Center is-Responsive text-centered">
 	<div class="overflow-auto" style="overflow: auto; height: 98%;">
 	<table class="table table-bordered table-striped">
-	  <th>Equipment ID</th>
 	  <th>Equipment Description</th>
 	  <th>Type</th>
 	  <% if @position.size > 0 %>
@@ -13,7 +12,6 @@
 	  <th colspan="2" style="text-align: center">Actions</th>
 	  <% @equipment.each do |item| %>
 	    <tr>
-		<td><%= item.id %></td>
 		<td><%= item.description %></td>
 		<td><%= item.type %></td>
 		<% if @position.size>0 %>

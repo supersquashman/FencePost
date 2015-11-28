@@ -9,28 +9,45 @@
 	  <th>Waiver</th>
 	  <th>Dues</th>
 	  <th>Position</th>
+	  <th>Last Sign-in</th>
 	  <% @users.each do |user| %>
 	    <tr>
-		<td><%= "#{user.first_name} #{user.last_name}" %></td>
+		
+		<td><%= link_to "/users/#{user.id}/edit", data: {modal: true} do%><i class="fa fa-pencil fa-fw"></i><%end%>&nbsp<%= "#{user.first_name} #{user.last_name}" %></td>
 		<td><%= user.email %></td>
 		<td>
-		<% if user.waiver %>
-		  <%= link_to "Complete", "/users/#{user.id}/waiver", :class => 'btn btn-success' %>
+		<% if @position.include?("president") or @position.include?("treasurer") %>
+		  <% if user.waiver %>
+		    <%= link_to "Complete", "/users/#{user.id}/waiver", :class => 'btn btn-success' %>
+		  <% else %>
+		    <%= link_to "Incomplete", "/users/#{user.id}/waiver", :class => 'btn btn-danger' %>
+		  <% end %>
+		  </td>
+		  <td>
+		  <% if user.dues %>
+		    <%= link_to "Paid", "/users/#{user.id}/dues", :class => 'btn btn-success' %>
+		  <% else %>
+		    <%= link_to "Unpaid", "/users/#{user.id}/dues", :class => 'btn btn-danger' %>
+		  <% end %>
+		  </td>
 		<% else %>
-		  <%= link_to "Incomplete", "/users/#{user.id}/waiver", :class => 'btn btn-danger' %>
+		  <% if user.waiver %>
+		    <td> Complete </td>
+		  <% else %>
+		    <td> Incomplete </td>
+		  <% end %>
+		  <% if user.dues %>
+		    <td> Paid </td>
+		  <% else %>
+		    <td > Unpaid </td>
+		  <% end %>
+		  </td>
 		<% end %>
-		</td>
-		<td>
-		<% if user.dues %>
-		  <%= link_to "Paid", "/users/#{user.id}/waiver", :class => 'btn btn-success' %>
-		<% else %>
-		  <%= link_to "Unpaid", "/users/#{user.id}/waiver", :class => 'btn btn-danger' %>
-		<% end %>
-		</td>
 		<td><%= Position.where("users_id=#{user.id}").select("title").collect{|t| t.title}.join(", ")%></td>
 	      <% if @position.include?("president") %>
 		  <td><%= link_to 'Edit Position', "/users/#{user.id}/positions", data: { modal: true}, :class=>'btn btn-info' %></td>
 		<% end %>
+		<td><%= user.current_sign_in_at %></td>
 	    </tr>
 	  <% end %>
 	<% else %>
