@@ -12,6 +12,6 @@ class EquipmentPolicy < ApplicationPolicy
   end
   
   def general_add_eq?
-    Position.where("title in ('armorer', 'president', 'treasurer')").select("users_id").to_a.collect{|t| t.users_id}.contains(user.id)
+    Position.where("title in ('armorer', 'president', 'treasurer')").select("users_id").to_a.collect{|t| t.users_id}.include?(user.id)
   end
 end

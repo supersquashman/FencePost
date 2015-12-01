@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   
   def dues
     change_user = User.find(params[:id])
-    authorize change_user, :alth_auth?
+    authorize change_user, :alt_auth?
     change_user.update({:dues=>!change_user.dues})
     respond_to do |format|
 	  format.html {redirect_to '/users'}
