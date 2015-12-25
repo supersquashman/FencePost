@@ -19,9 +19,9 @@ class NotificationsController < ApplicationController
   end
   
   def approve
-    @curr_user = current_user.id
-    authorize @curr_user, :armorer?
     current_request = EquipmentRequest.find(params[:id])
+    @current_item = Equipment.find(current_request.equipment_id)
+    authorize @current_item, :armorer?
     approve_param = Hash.new
     approve_param[:request_status_id] = RequestStatus.where("status_desc like 'Approved'").select("id")[0][:id]
     approve_param[:time_closed] = Time.now
@@ -137,6 +137,7 @@ class NotificationsController < ApplicationController
       new_notification.save
     when "Repair"
       requests_to_update = EquipmentRequest.where("equipment_id=#{current_request.equipment_id} and request_type_ids=#{current_request.request_types_id} and request_status_id=#{current_request.request_status_id}")
+      requests_to_update_params=Hash.new
       requests_to_update_params[:request_status_id] = RequestStatus.where("status_desc like 'Denied'").select("id")[0][:id]
       requests_to_update_params[:time_closed] = Time.now
       requests_to_update.update_all(requests_to_update_params)
